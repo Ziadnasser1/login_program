@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1651169135 source:d:\c++\files\main.cpp
+	<iostream>
+	<string>
+	<regex>
+	<fstream>
+	"register.h"
+
+1651168435 d:\c++\files\register.h
+	<string>
+
+1651168435 source:d:\c++\files\register.cpp
+	<iostream>
+	<regex>
+	<fstream>
+	"register.h"
+

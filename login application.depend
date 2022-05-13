@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1651683008 source:d:\c++\login applications\login application(register) with oop\register.cpp
+	<iostream>
+	<regex>
+	<fstream>
+	<conio.h>
+	<iomanip>
+	<sstream>
+	"register.h"
+
+1652448123 d:\c++\login applications\login application(register) with oop\register.h
+	<string>
+
+1652448067 source:d:\c++\login applications\login application(register) with oop\main.cpp
+	<iostream>
+	<regex>
+	<fstream>
+	"register.h"
+

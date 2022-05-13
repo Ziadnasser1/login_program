@@ -1,0 +1,3 @@
+UsersName                  |EncryptedUsersPassword    |UsersID                   |UsersEmail                |
+--------------------------------------------------------------------------------------------------------------||
+youssefzakaria             QCNUHNJMRI234567$         :20210458                   youssefahmed052@gmail.com  |
