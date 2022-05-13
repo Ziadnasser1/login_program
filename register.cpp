@@ -262,3 +262,102 @@ void user::set_data(){
                 }                cout<<endl;
             }
 }
+
+void user::login_data(){
+        string Pass1,I;
+        user employee;
+        int n=3;
+
+        while(n--){
+            cout<<"Enter your ID: ";
+            cin>>I;
+            employee.setID(I);
+
+            cout<<"Enter your password: ";
+            Pass1=employee.hide_password();
+            employee.setPassword(Pass1);
+            string ciphered_pass=employee.Cipher_password(employee.getPassword());
+
+            if(employee.check_login(employee.getID(),ciphered_pass)== true){
+                    cout<<"-------------------------------------"<<endl;
+                    cout<<"Successful login, welcome!"<<endl;
+                    break;
+            }
+            else{
+                cout<<"-------------------------------------"<<endl;
+                cout<<"Failed Login, Try Again!"<<endl;
+            }
+            if(n==0){
+            cout<<"Sorry, but you are denied to enter the system";
+            }
+        }
+            cout<<endl;
+
+}
+
+bool user::check_login(string Id, string EMAIL_u){
+   fstream myfile("UsersData.txt",ios::in | ios::out | ios::app);
+   if(!myfile.is_open())
+        cout<<"error while opening the file"<<endl;
+   else{
+        cout<<"-------------------------"<<endl;
+        cout<<"file opened successfully"<<endl;
+        cout<<"reading from the file"<<endl;
+
+        bool valid =false;
+        string line;
+        while(myfile.good()){
+            getline(myfile,line);
+            if(line.find(Id)!=std::string::npos && line.find(EMAIL_u)!=std::string::npos){
+                valid=true;
+                break;
+            }
+        }
+        return valid;
+   }
+   myfile.close();
+}
+
+string user::get_old_pass(string NAME){
+    ifstream file;
+	file.open("UsersData.txt");
+    string PASS;
+
+	bool isFound=0;
+	while(!file.eof())
+	{
+		string temp = "";
+		getline(file,temp);
+		for(int i=0;i<NAME.size();i++)
+		{
+			if(temp[i]==NAME[i])
+				isFound = 1;
+			else
+			{
+				isFound =0;
+				break;
+			}
+		}
+		if(isFound)
+		{
+			for(int i = NAME.size()+1;i<temp.size();i++){
+				if(temp[i]==':')
+                    break;
+                else if(temp[i]==' ')
+                    continue;
+                else{
+                    PASS.push_back(temp[i]);
+                }
+			}
+			break;
+		}
+	}
+
+	if(file.eof()&&(!isFound))
+	{
+		cout << "Name not found!\n";
+	}
+	file.close();
+
+	return PASS;
+}

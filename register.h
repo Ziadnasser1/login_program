@@ -6,6 +6,7 @@ using namespace std;
 
 void display_menu();
 void display_pass_Tip();
+void changeFilesNames();
 
 class user
 {
@@ -25,6 +26,12 @@ public:
     bool check_register(string Id, string EMAIL_u);
     bool check_passwords(string p1,string p2);
     void set_data();
+    void login_data();
+    bool check_login(string Id, string EMAIL_u);
+    string get_old_pass(string NAME);
+    void change_password();
+    void get_passwords();
+    void changeTheOldFile();
     string Cipher_password(string message);
     string hide_password();
     string getName();

@@ -25,7 +25,7 @@ int main()
             }
             case '2':{
                 //checking user login data.
-
+                employee.login_data();
                 break;
             }
             case '3':{
