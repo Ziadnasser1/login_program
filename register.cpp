@@ -361,3 +361,97 @@ string user::get_old_pass(string NAME){
 
 	return PASS;
 }
+void changeFilesNames(){
+    string status;
+    char file1[]="UsersData.txt";
+    char file2[]="UsersData2.txt";
+
+    status = remove(file1);
+
+    if (rename(file2, file1) != 0)
+		perror("Error renaming file");
+}
+string Opass_from_file,n_Pass1;
+void user::get_passwords(){
+    user employee;
+    string oldPass,Pass2,name,EncryptedOldPass;
+    bool IsOk=true,Is_valid=true,is_done=true;
+
+    cout<<"enter your name: ";
+    cin>>name;
+    employee.setName(name);
+
+    Opass_from_file=employee.get_old_pass(name);
+
+    while(is_done){
+        cout<<"Enter your old password: ";
+        oldPass =employee.hide_password();
+        EncryptedOldPass=Cipher_password(oldPass);
+
+        display_pass_Tip();
+
+        cout<<"Enter your New Password: ";
+        n_Pass1=employee.hide_password();
+        employee.setPassword(n_Pass1);
+
+        cout<<"Enter your New Password one more time :";
+        Pass2=employee.hide_password();
+
+        while(Is_valid){
+            if(employee.check_passwords(employee.getPassword(),Pass2)==true){
+                Is_valid=false;
+                }
+            else{
+                cout<<"Passwords did not match enter your New password again: ";
+                n_Pass1=employee.hide_password();
+                employee.setPassword(n_Pass1);
+                cout<<"Enter your New password one more time: ";
+                Pass2=employee.hide_password();
+                }
+            }
+        while(IsOk){
+            if(employee.check_passwords(EncryptedOldPass,Opass_from_file)==true){
+                IsOk=false;
+                is_done=false;
+                }
+            else{
+                cout<<"Password you enter did not match your old password!"<<endl;
+                //oldPass=employee.hide_password();
+                break;
+                }
+            }
+    }
+}
+
+void user::change_password(){
+    user employee;
+
+    employee.get_passwords();
+    employee.changeTheOldFile();
+}
+
+void user::changeTheOldFile(){
+    user employee;
+        string replaceStr = Opass_from_file; //String to replace
+        string replacementStr = Cipher_password(n_Pass1);	//String To replace with
+        ifstream filein("UsersData.txt"); //File to read from
+        ofstream fileout("UsersData2.txt"); //Temporary file
+        string strTemp,word;
+
+     while(filein >>word)
+        {
+            if(word==replaceStr){
+                word = replacementStr;
+                fileout<<left<<setfill(' ')<<setw(27)<<word;
+            }
+            else if(word=="|")
+                fileout<<"|"<<endl;
+            else if(word=="-" || word==":")
+                fileout<<word;
+            else
+                fileout<<left<<setfill(' ')<<setw(27)<<word;
+
+        }
+        filein.close();
+        fileout.close();
+}

@@ -30,6 +30,8 @@ int main()
             }
             case '3':{
                 //changing the user password.
+                employee.change_password();
+                changeFilesNames();
                 break;
                 }
             case '4':{
